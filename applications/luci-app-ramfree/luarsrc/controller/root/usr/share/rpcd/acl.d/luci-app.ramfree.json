@@ -1,0 +1,11 @@
+{
+	"luci-app-ramfree": {
+		"description": "Free Your RAM",
+		"read": {
+			"uci": ["release_ram"]
+		},
+		"write": {
+			"uci": ["release_ram"]
+		}
+	}
+}
