@@ -272,6 +272,11 @@ return view.extend({
 			_('Authoritative'),
 			_('This is the only DHCP server in the local network.'));
 
+
+		s.taboption('general', form.Flag, 'dns_redirect',
+			_('DNS Redirect'),
+			_('Redirect client DNS to dnsmasq'));
+
 		s.taboption('general', form.Value, 'local',
 			_('Local server'),
 			_('Never forward matching domains and subdomains, resolve from DHCP or hosts files only.'));
@@ -556,6 +561,13 @@ return view.extend({
 		o.optional = true;
 		o.datatype = 'range(0,10000)';
 		o.placeholder = 1000;
+
+		o = s.taboption('advanced', form.Value, 'mini_ttl',
+			_('Minimum TTL to send to clients'),
+			_('Modify DNS entries minimum TTL (max is 86400, 0 is no modify)'));
+		o.optional = true;
+		o.datatype = 'range(0,86400)';
+		o.placeholder = 0;
 
 		o = s.taboption('pxe_tftp', form.Flag, 'enable_tftp',
 			_('Enable TFTP server'),

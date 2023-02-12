@@ -10880,6 +10880,26 @@ msgstr "« 后退"
 
 #~ msgid "Unavailable Seconds (UAS)"
 #~ msgstr "不可用秒数（UAS）"
+msgid "Online Users"
+msgstr "在线用户数"
+
+msgid "DNS Redirect"
+msgstr "DNS 重定向"
+
+msgid "Redirect client DNS to dnsmasq"
+msgstr "重定向客户端DNS到dnsmasq"
+
+msgid "Minimum TTL to send to clients"
+msgstr "客户端缓存的最小 DNS TTL"
+
+msgid "Modify DNS entries minimum TTL (max is 86400, 0 is no modify)"
+msgstr "修改发送到客户端的域名记录的 TTL 时间 (最大 86400, 0 表示不修改)"
+
+msgid "Enable 256-QAM"
+msgstr "启用 256-QAM"
+
+msgid "802.11n 2.4Ghz Only"
+msgstr "只适合 802.11n 2.4Ghz"
 
 #~ msgid ""
 #~ "Avoid uselessly triggering dial-on-demand links (filters SRV/SOA records "
