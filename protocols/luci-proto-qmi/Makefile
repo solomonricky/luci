@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Support for QMI
-LUCI_DEPENDS:=+uqmi
+LUCI_DEPENDS:=+rqmi
 
 include ../../luci.mk
 

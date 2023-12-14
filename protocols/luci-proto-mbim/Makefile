@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Support for MBIM
-LUCI_DEPENDS:=+umbim
+LUCI_DEPENDS:=+rmbim
 
 include ../../luci.mk
 
