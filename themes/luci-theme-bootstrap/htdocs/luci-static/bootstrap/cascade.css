@@ -259,6 +259,7 @@ input[type="search"]::-webkit-search-decoration {
 textarea {
 	overflow: auto;
 	vertical-align: top;
+	font-family: monospace;
 }
 
 .control-group {
@@ -535,8 +536,7 @@ fieldset legend {
 label,
 input,
 button,
-select,
-textarea {
+select {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	font-weight: normal;
@@ -2567,17 +2567,18 @@ div.cbi-value var.cbi-tooltip-container,
 	max-width: none;
 }
 
+[data-darkmode="true"] [data-page="admin-status-channel_analysis"] #view> div > div > div > div > div[style],
 [data-darkmode="true"] [data-page="admin-status-realtime-load"] #view > div[style],
 [data-darkmode="true"] [data-page="admin-status-realtime-bandwidth"] #view > div > div > div > div[style],
-[data-darkmode="true"] [data-page="admin-status-realtime-connections"] #view > div[style],
-[data-darkmode="true"] [data-page="admin-status-channel_analysis"] #view> div >div > div > div > div[style],
-[data-darkmode="true"] [data-page="admin-status-realtime-wireless"] #view > div > div > div > div[style] {
+[data-darkmode="true"] [data-page="admin-status-realtime-wireless"] #view > div > div > div > div[style],
+[data-darkmode="true"] [data-page="admin-status-realtime-connections"] #view > div[style] {
 	background-color: var(--background-color-high)!important;
 }
 
+[data-darkmode="true"] [data-page="admin-status-channel_analysis"] #view> div > div > div > div > div > svg > line[style],
 [data-darkmode="true"] [data-page="admin-status-realtime-load"] #view > div > svg > line[style],
 [data-darkmode="true"] [data-page="admin-status-realtime-bandwidth"] #view > div > div > div > div > svg > line[style],
-[data-darkmode="true"] [data-page="admin-status-realtime-connections"] #view > div > svg > line[style],
-[data-darkmode="true"] [data-page="admin-status-realtime-wireless"] #view > div > svg > line[style] {
+[data-darkmode="true"] [data-page="admin-status-realtime-wireless"] #view > div > div > div > div > svg > line[style],
+[data-darkmode="true"] [data-page="admin-status-realtime-connections"] #view > div > svg > line[style] {
 	stroke: #fff!important;
 }
