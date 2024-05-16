@@ -1,51 +1,37 @@
 local api = require "luci.passwall.api"
-local appname = "passwall"
+local appname = api.appname
+local sys = api.sys
 local has_ss = api.is_finded("ss-redir")
 local has_ss_rust = api.is_finded("sslocal")
 local has_trojan_plus = api.is_finded("trojan-plus")
-local has_singbox = api.finded_com("singbox")
-local has_xray = api.finded_com("xray")
-local has_hysteria2 = api.finded_com("hysteria")
-local ss_type = {}
+local has_v2ray = api.is_finded("v2ray")
+local has_xray = api.is_finded("xray")
+local has_trojan_go = api.is_finded("trojan-go")
+local ss_aead_type = {}
 local trojan_type = {}
-local vmess_type = {}
-local vless_type = {}
-local hysteria2_type = {}
 if has_ss then
-	local s = "shadowsocks-libev"
-	table.insert(ss_type, s)
+	ss_aead_type[#ss_aead_type + 1] = "shadowsocks-libev"
 end
 if has_ss_rust then
-	local s = "shadowsocks-rust"
-	table.insert(ss_type, s)
+	ss_aead_type[#ss_aead_type + 1] = "shadowsocks-rust"
 end
 if has_trojan_plus then
-	local s = "trojan-plus"
-	table.insert(trojan_type, s)
+	trojan_type[#trojan_type + 1] = "trojan-plus"
 end
-if has_singbox then
-	local s = "sing-box"
-	table.insert(trojan_type, s)
-	table.insert(ss_type, s)
-	table.insert(vmess_type, s)
-	table.insert(vless_type, s)
-	table.insert(hysteria2_type, s)
+if has_v2ray then
+	trojan_type[#trojan_type + 1] = "v2ray"
+	ss_aead_type[#ss_aead_type + 1] = "v2ray"
 end
 if has_xray then
-	local s = "xray"
-	table.insert(trojan_type, s)
-	table.insert(ss_type, s)
-	table.insert(vmess_type, s)
-	table.insert(vless_type, s)
+	trojan_type[#trojan_type + 1] = "xray"
+	ss_aead_type[#ss_aead_type + 1] = "xray"
 end
-if has_hysteria2 then
-	local s = "hysteria2"
-	table.insert(hysteria2_type, s)
+if has_trojan_go then
+	trojan_type[#trojan_type + 1] = "trojan-go"
 end
 
 m = Map(appname)
 m.redirect = api.url("node_subscribe")
-api.set_apply_on_parse(m)
 
 s = m:section(NamedSection, arg[1])
 s.addremove = false
@@ -81,48 +67,21 @@ o:depends("filter_keyword_mode", "2")
 o:depends("filter_keyword_mode", "3")
 o:depends("filter_keyword_mode", "4")
 
-if #ss_type > 0 then
-	o = s:option(ListValue, "ss_type", translatef("%s Node Use Type", "Shadowsocks"))
+if #ss_aead_type > 0 then
+	o = s:option(ListValue, "ss_aead_type", translate("SS AEAD Node Use Type"))
 	o.default = "global"
 	o:value("global", translate("Use global config"))
-	for key, value in pairs(ss_type) do
-		o:value(value)
+	for key, value in pairs(ss_aead_type) do
+		o:value(value, translate(value:gsub("^%l",string.upper)))
 	end
 end
 
 if #trojan_type > 0 then
-	o = s:option(ListValue, "trojan_type", translatef("%s Node Use Type", "Trojan"))
+	o = s:option(ListValue, "trojan_type", translate("Trojan Node Use Type"))
 	o.default = "global"
 	o:value("global", translate("Use global config"))
 	for key, value in pairs(trojan_type) do
-		o:value(value)
-	end
-end
-
-if #vmess_type > 0 then
-	o = s:option(ListValue, "vmess_type", translatef("%s Node Use Type", "VMess"))
-	o.default = "global"
-	o:value("global", translate("Use global config"))
-	for key, value in pairs(vmess_type) do
-		o:value(value)
-	end
-end
-
-if #vless_type > 0 then
-	o = s:option(ListValue, "vless_type", translatef("%s Node Use Type", "VLESS"))
-	o.default = "global"
-	o:value("global", translate("Use global config"))
-	for key, value in pairs(vless_type) do
-		o:value(value)
-	end
-end
-
-if #hysteria2_type > 0 then
-	o = s:option(ListValue, "hysteria2_type", translatef("%s Node Use Type", "Hysteria2"))
-	o.default = "global"
-	o:value("global", translate("Use global config"))
-	for key, value in pairs(hysteria2_type) do
-		o:value(value)
+		o:value(value, translate(value:gsub("^%l",string.upper)))
 	end
 end
 
@@ -146,10 +105,6 @@ o.default = 0
 o:depends("auto_update", true)
 
 o = s:option(Value, "user_agent", translate("User-Agent"))
-o.default = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0"
-o:value("curl")
-o:value("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0")
-o:value("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0")
-o:value("Passwall/OpenWrt")
+o.default = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
 
 return m
